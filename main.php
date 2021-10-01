@@ -1,5 +1,7 @@
 <?php
 
+include('composants/creerClient.php');
+include('composants/imprimerClient.php');
 
 function afficheMenu(){
     echo("\n1. Créer une agence\n");
@@ -23,6 +25,7 @@ while(!$terminer){
     switch($choix){
         case 1:
             echo("=== CHOIX 1 ===\n");
+            creerClient();
             break;
         case 2:
             echo("=== CHOIX 2 ===\n");
@@ -41,6 +44,7 @@ while(!$terminer){
             break;
         case 7:
             echo("=== CHOIX 7 ===\n");
+            imprimerClient();
             break;
         case 8:
             echo("=== CHOIX 8 ===\n");

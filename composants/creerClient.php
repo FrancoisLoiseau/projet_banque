@@ -20,7 +20,7 @@ if(filesize("bdd/client.csv") > 0){
                     $id = chr(rand(65,90)) . chr(rand(65,90));
                     $id .= rand(100000, 999999);
                 }
-                fseek(0);
+                fseek($f, 0);
             }
         }
     }

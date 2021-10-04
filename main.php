@@ -1,6 +1,7 @@
 <?php
 
 include('composants/creerClient.php');
+include('composants/creerAgence.php');
 include('composants/imprimerClient.php');
 
 function afficheMenu(){
@@ -24,30 +25,31 @@ while(!$terminer){
 
     switch($choix){
         case 1:
-            echo("=== CHOIX 1 ===\n");
-            creerClient();
+            echo("=== CHOIX 1 : CRÉER UNE AGENCE ===\n");
+            creerAgence();
             break;
         case 2:
-            echo("=== CHOIX 2 ===\n");
+            echo("=== CHOIX 2 : CRÉER UN CLIENT ===\n");
+            creerClient();
             break;
         case 3:
-            echo("=== CHOIX 3 ===\n");
+            echo("=== CHOIX 3 : CRÉER UN COMPTE BANCAIRE ===\n");
             break;
         case 4:
-            echo("=== CHOIX 4 ===\n");
+            echo("=== CHOIX 4 : RECHERCHER UN COMPTE ===\n");
             break;
         case 5:
-            echo("=== CHOIX 5 ===\n");
+            echo("=== CHOIX 5 : RECHERCHER UN CLIENT ===\n");
             break;
         case 6:
-            echo("=== CHOIX 6 ===\n");
+            echo("=== CHOIX 6 : AFFICHER LA LISTE DES COMPTES D'UN CLIENT ===\n");
             break;
         case 7:
-            echo("=== CHOIX 7 ===\n");
+            echo("=== CHOIX 7 : IMPRIMER LES INFORMATIONS CLIENTS ===\n");
             imprimerClient();
             break;
         case 8:
-            echo("=== CHOIX 8 ===\n");
+            echo("=== CHOIX 8 : QUITTER ===\n");
             $terminer = true;
             break;
         default:

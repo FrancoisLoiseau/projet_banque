@@ -3,6 +3,7 @@
 include('composants/creerClient.php');
 include('composants/creerAgence.php');
 include('composants/creerCompte.php');
+include('composants/rechClient.php');
 include('composants/imprimerClient.php');
 
 function afficheMenu(){
@@ -42,6 +43,7 @@ while(!$terminer){
             break;
         case 5:
             echo("=== CHOIX 5 : RECHERCHER UN CLIENT ===\n");
+            rechClient();
             break;
         case 6:
             echo("=== CHOIX 6 : AFFICHER LA LISTE DES COMPTES D'UN CLIENT ===\n");

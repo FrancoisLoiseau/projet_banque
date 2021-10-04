@@ -1,27 +1,42 @@
 <?php
-$header = ("Genre;" . "nom;" . "prenom;" . "date de naissance;" . "mail\n");
-$genre = readline ("Veuillez saisir votre genre (taper  ou Femme) : ");
+$header = ["id", "genre", "nom", "prenom", "date_naissance", "mail"];
+
+$genre = readline ("Veuillez saisir votre genre (taper Homme ou Femme) : ");
 $nom = readline ("Entrez votre nom de famille : ");
 $prenom = readline ("Entrez votre prénom : ");
 $age = readline ("Entrez votre date de naissance (JJ/MM/AAAA) : ");
 $mail = readline ("Veuillez saisir votre e-mail : ");
 
+for($i=0; $i<8; $i++){
+    $id = chr(rand(65,90)) . chr(rand(65,90));
+    $id .= rand(100000, 999999);
+}
 
-$f = fopen("bdd/client.csv", "a+");
-if (filesize("bdd/client.csv") > 0){
-    fwrite($f, ($genre . ";" . $nom . ";" . $prenom . ";" . $age . ";" . $mail . "\n"));
+if(filesize("bdd/client.csv") > 0){
+    if(($f = fopen("./bdd/client.csv", "a+")) !== FALSE) { //On ouvre le fichier si possible
+        while (($data = fgetcsv($f, 1000, ";")) !== FALSE) { //Tant que l'on est pas à la fin du fichier, on recupère chaque ligne
+            if($data[0] == $id){ // Si on trouve la valeur recherchée
+                for($i=0; $i<8; $i++){
+                    $id = chr(rand(65,90)) . chr(rand(65,90));
+                    $id .= rand(100000, 999999);
+                }
+                fseek(0);
+            }
+        }
+    }
+    $tab = [$id, $genre, $nom, $prenom, $age, $mail];
+    fputcsv($f, $tab, ";");
+    fclose($f); // On ferme le fichier
 }
 else{
-    fwrite($f, ($header));
-    fwrite($f, ($genre . ";" . $nom . ";" . $prenom . ";" . $age . ";" . $mail . "\n"));
+    $f = fopen("./bdd/client.csv", "a+");
+    $tab = [$id, $genre, $nom, $prenom, $age, $mail];
+    fputcsv($f, $header, ";");
+    fputcsv($f, $tab, ";");
+    fclose($f); // On ferme le fichier
 }
 
-$suite = chr(rand(65,90)) . chr(rand(65,90));
-$suite .= rand(100000, 999999);
-echo ("Votre identifiant client est : " . $suite);
+echo("Votre ID est: " . $id);
 
 echo "\n";
-
-
-fclose($f);
 ?>

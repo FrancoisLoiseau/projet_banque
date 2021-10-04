@@ -9,7 +9,7 @@ function imprimerClient(){
 
     if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
         while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-            if($data[$i] == $recherche){
+            if($data[0] == $recherche){
                 $client = [
                     "id_client" => $data[0],
                     "nom" => $data[1],
@@ -29,7 +29,7 @@ function imprimerClient(){
     else{
         if (($fichier = fopen("./bdd/compte.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                if($data[$i] == $client["id_client"]){
+                if($data[0] == $client["id_client"]){
                     $compte = [
                         "id_compte" => $data[0],
                         "id_agence" => $data[1],

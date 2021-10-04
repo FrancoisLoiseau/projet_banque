@@ -1,4 +1,6 @@
 <?php
+
+function creerCompte(){
     $header = ["Numero_de_compte" , "Code_agence" , "Identifiant_client", "solde", "decouvert_autorise", "type_compte"];
     $numCompte = "";
     $client = null;
@@ -72,4 +74,7 @@
         echo("Votre nouveau numéro de compte bancaire est : $numCompte");
         fclose($f);
     }
+}
+
+    
 ?>

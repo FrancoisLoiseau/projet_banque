@@ -2,6 +2,7 @@
 
 include('composants/creerClient.php');
 include('composants/creerAgence.php');
+include('composants/creerCompte.php');
 include('composants/imprimerClient.php');
 
 function afficheMenu(){
@@ -34,6 +35,7 @@ while(!$terminer){
             break;
         case 3:
             echo("=== CHOIX 3 : CRÉER UN COMPTE BANCAIRE ===\n");
+            creerCompte();
             break;
         case 4:
             echo("=== CHOIX 4 : RECHERCHER UN COMPTE ===\n");

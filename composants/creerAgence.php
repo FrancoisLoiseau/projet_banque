@@ -30,7 +30,7 @@ else{
     for($i=0; $i<count($tab_code); $i++) {
         if($code==$tab_code[$i]) {
             $code=(rand(100,999));
-            $i=0;
+            $i=-1;
         }
     }
     $tabagence= [$code, $nom, $adresse];

@@ -5,8 +5,7 @@ function rechClient(){
     $num_de_compte = readline("Veuillez saisir votre numero de compte: ");
     $id = readline ("Veuillez entrer votre ID client: ");
 
-    $listeClient = [];
-
+    $listeNom = [];
     if(strlen($nom) > 0){
         if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
@@ -19,14 +18,14 @@ function rechClient(){
                         "date_naissance" => $data[4],
                         "email" => $data[5],
                     ];
-                    $listeClient[] = $client;
-                    break;
+                    $listeNom[] = $client;
                 }
             }
             fclose($fichier);
         }
     }
 
+    $listeId = [];
     if(strlen($id) > 0){
         if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
@@ -39,7 +38,7 @@ function rechClient(){
                         "date_naissance" => $data[4],
                         "email" => $data[5],
                     ];
-                    $listeClient[] = $client;
+                    $listeId[] = $client;
                     break;
                 }
             }
@@ -47,6 +46,7 @@ function rechClient(){
         }
     }
 
+    $listeCompte = [];
     if(strlen($num_de_compte) > 0){
         $idClient = null;
         if (($fichier = fopen("./bdd/compte.csv", "r")) !== FALSE) {
@@ -69,7 +69,7 @@ function rechClient(){
                                 "date_naissance" => $data[4],
                                 "email" => $data[5],
                             ];
-                            $listeClient[] = $client;
+                            $listeCompte[] = $client;
                             break;
                         }
                     }
@@ -79,17 +79,69 @@ function rechClient(){
         }
     }
 
-    $listeClient = array_unique($listeClient, SORT_REGULAR);
-
     $i = 1;
-    foreach($listeClient as $client){
-        echo("\nClient n°" . $i);
-        echo(" -- ");
-        foreach($client as $elt){
-            echo($elt . ", ");
+    echo("\n\n== Recherche par nom ==\n\n");
+    if(count($listeNom) > 0){
+        foreach($listeNom as $client){
+            echo("Client n°" . $i);
+            echo(" -- ");
+            foreach($client as $elt){
+                if($elt == $client["email"]){
+                    echo($elt . "\n");
+                }
+                else{
+                    echo($elt . ", ");
+                }
+            }
+            $i++;
         }
-        $i++;
     }
+    else{
+        echo("Aucun résultat par nom");
+    }
+
+    echo("\n\n== Recherche par ID client ==\n\n");
+    if(count($listeId) > 0){
+        foreach($listeId as $client){
+            echo("Client n°" . $i);
+            echo(" -- ");
+            foreach($client as $elt){
+                if($elt == $client["email"]){
+                    echo($elt . "\n");
+                }
+                else{
+                    echo($elt . ", ");
+                }
+            }
+            $i++;
+        }
+    }
+    else{
+        echo("Aucun résultat par ID client");
+    }
+
+
+    echo("\n\n== Recherche par numéro de compte ==\n\n");
+    if(count($listeCompte) > 0){
+        foreach($listeCompte as $client){
+            echo("Client n°" . $i);
+            echo(" -- ");
+            foreach($client as $elt){
+                if($elt == $client["email"]){
+                    echo($elt . "\n");
+                }
+                else{
+                    echo($elt . ", ");
+                }
+            }
+            echo("\n");
+            $i++;
+        }
+    }
+    else{
+        echo("Aucun résultat par numéro de compte\n");
+    }
+
 }
 
 

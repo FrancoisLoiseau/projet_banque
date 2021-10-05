@@ -1,7 +1,7 @@
 <?php
 
 function creerCompte(){
-    $header = ["Numero_de_compte" , "Code_agence" , "Identifiant_client", "solde", "decouvert_autorise", "type_compte"];
+    $header = ["numero_compte" , "code_agence" , "id_client", "solde", "decouvert_autorise", "type_compte"];
     $numCompte = "";
     $client = null;
     $compteur = 0;
@@ -31,7 +31,7 @@ function creerCompte(){
     }
 
     if($compteur > 2){
-        echo("Vous avez atteint le nombre maximum de comptes autorisé.");
+        echo("Vous avez atteint le nombre maximum de comptes autorisés.");
     }
     else{
         $agence = "";
@@ -71,7 +71,7 @@ function creerCompte(){
             $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
             fputcsv($f, $tab, ";");
         }
-        echo("Votre nouveau numéro de compte bancaire est : $numCompte");
+        echo("Votre nouveau numéro de compte bancaire est : " . $numCompte . "\n");
         fclose($f);
     }
 }

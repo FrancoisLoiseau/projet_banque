@@ -2,7 +2,7 @@
 
 function creerAgence(){
 
-    $tabagence = ["code", "nom", "adresse"];
+    $tabagence = ["code_agence", "nom", "adresse"];
     $filname = "./bdd/agence.csv";
     
     $nom = readline ("Entrer le nom de l'agence : ");
@@ -41,12 +41,6 @@ function creerAgence(){
         fclose($var);
     }
 }
-
-
-
-
-
-
 
 
 ?>

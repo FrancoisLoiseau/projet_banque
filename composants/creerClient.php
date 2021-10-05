@@ -1,7 +1,7 @@
 <?php
 
 function creerClient(){
-    $header = ["id", "genre", "nom", "prenom", "date_naissance", "mail"];
+    $header = ["id_client", "genre", "nom", "prenom", "date_naissance", "mail"];
 
     $genre = readline ("Veuillez entrer votre genre (taper Homme ou Femme) : ");
     $nom = readline ("Entrez votre nom de famille : ");

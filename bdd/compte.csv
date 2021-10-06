@@ -1,0 +1,5 @@
+numero_compte;code_agence;id_client;solde;decouvert_autorise;type_compte
+03913837494;527;PC156212;1428;N;PEL
+45409130809;286;AL729507;1466;O;Courant
+10728909939;286;AL729507;1301;N;"Livret A"
+26037538168;286;AL729507;726;O;PEL

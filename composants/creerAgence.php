@@ -19,6 +19,7 @@ function creerAgence(){
     }
     else{
         $tab=[];
+        
         $tab_code=[];
     
         while(($row=fgetcsv($var, 1000, ";"))!=false) {
@@ -32,7 +33,7 @@ function creerAgence(){
         for($i=0; $i<count($tab_code); $i++) {
             if($code==$tab_code[$i]) {
                 $code=(rand(100,999));
-                $i=0;
+                $i=-1;
             }
         }
         $tabagence= [$code, $nom, $adresse];

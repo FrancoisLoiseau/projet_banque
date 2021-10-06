@@ -5,6 +5,7 @@ function creerCompte(){
     $numCompte = "";
     $client = null;
     $compteur = 0;
+    $listeTypeCompte = [];
 
     while($client == null){
         $recherche = readline("Entrez votre numéro de client : ");
@@ -19,7 +20,8 @@ function creerCompte(){
             if (($fCompte = fopen("./bdd/compte.csv", "r")) !== FALSE){
                 while (($data = fgetcsv($fCompte, 1000, ";")) !== FALSE){
                     if($data[2] == $recherche){
-                    $compteur++;
+                        $compteur++;
+                        $listeTypeCompte[] = $data[5];
                     }
                 }
             }
@@ -60,11 +62,24 @@ function creerCompte(){
         else{
             $solde = rand(0, 1500);
         }
-        $typeCompte = readline ("Quel type de compte souhaitez vous ? (Livret A / PEL / Courant) : ");
-        while ($typeCompte != "Livret A" && $typeCompte != "PEL" && $typeCompte != "Courant"){
-            echo ("Ce type de compte n'est pas valide.\n");
-        $typeCompte = readline (("Veuillez saisir un compte parmis les choix entre parenthèses (Livret A / PEL / Courant): "));
-            }
+
+        $comptePossible = ["Livret A", "PEL", "Courant"];
+        if($listeTypeCompte !== []){
+            $comptePossible = array_diff($comptePossible, $listeTypeCompte);
+        }
+
+        $ch = "(Disponible : ";
+        foreach($comptePossible as $type){
+            $ch .= $type . " - ";
+        }
+        $ch .= ")";
+
+        $typeCompte = readline ("Quel type de compte voulez vous ? " . $ch . " : ");
+        while((!in_array($typeCompte, $comptePossible))){
+            echo("Le type de compte voulu est incorrect ou existe déjà.\n");
+            $typeCompte = readline ("Quel type de compte voulez vous ? " . $ch . " : ");
+        }
+
         $f = fopen("./bdd/compte.csv", "a+");
         if (filesize("./bdd/compte.csv") > 0){
             $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];

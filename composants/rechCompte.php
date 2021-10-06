@@ -1,6 +1,6 @@
 <?
 
-function afficheCompte() {
+function rechCompte() {
 
 $num_compte=readline ("Entrer votre n° de compte : ");
 $listeCompte1=null;

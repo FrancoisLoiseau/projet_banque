@@ -60,7 +60,11 @@ function creerCompte(){
         else{
             $solde = rand(0, 1500);
         }
-        $typeCompte = readline ("Quel type de compte voulez vous ? (Livret A / PEL / Courant) : ");
+        $typeCompte = readline ("Quel type de compte souhaitez vous ? (Livret A / PEL / Courant) : ");
+        while ($typeCompte != "Livret A" && $typeCompte != "PEL" && $typeCompte != "Courant"){
+            echo ("Ce type de compte n'est pas valide.\n");
+        $typeCompte = readline (("Veuillez saisir un compte parmis les choix entre parenthèses (Livret A / PEL / Courant): "));
+            }
         $f = fopen("./bdd/compte.csv", "a+");
         if (filesize("./bdd/compte.csv") > 0){
             $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
@@ -75,6 +79,5 @@ function creerCompte(){
         fclose($f);
     }
 }
-
     
 ?>

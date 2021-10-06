@@ -1,8 +1,7 @@
 <?php
 
 function creerCompte(){
-
-    $header = ["Numero_de_compte" , "Code_agence" , "Identifiant_client", "solde", "decouvert_autorise", "type_compte"];
+    $header = ["numero_compte" , "code_agence" , "id_client", "solde", "decouvert_autorise", "type_compte"];
     $numCompte = "";
     $client = null;
     $compteur = 0;
@@ -32,7 +31,7 @@ function creerCompte(){
     }
 
     if($compteur > 2){
-        echo("Vous avez atteint le nombre maximum de comptes autorisé.");
+        echo("Vous avez atteint le nombre maximum de comptes autorisés.");
     }
     else{
         $agence = "";
@@ -53,43 +52,29 @@ function creerCompte(){
             $numCompte .= rand(0,9);
         }
         
+        $solde = 0;
+        $decouvert = chr(rand(78,79));
+        if($decouvert == "O"){
+            $solde = rand(-200, 1500);
+        }
+        else{
+            $solde = rand(0, 1500);
+        }
+        $typeCompte = readline ("Quel type de compte voulez vous ? (Livret A / PEL / Courant) : ");
         $f = fopen("./bdd/compte.csv", "a+");
         if (filesize("./bdd/compte.csv") > 0){
-            $tab = [$numCompte, $agence, $client];
+            $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
             fputcsv($f, $tab, ";");
         }
         else{
             fputcsv($f, $header, ";");
-            $tab = [$numCompte, $agence, $client];
+            $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
             fputcsv($f, $tab, ";");
         }
-        echo("Votre nouveau numéro de compte bancaire est : $numCompte");
+        echo("Votre nouveau numéro de compte bancaire est : " . $numCompte . "\n");
         fclose($f);
     }
-    for($i=0; $i<11; $i++){
-        $numCompte .= rand(0,9);
-    }
-    
-    $solde = 0;
-    $decouvert = chr(rand(78,79));
-    if($decouvert == "O"){
-        $solde = rand(-200, 1500);
-    }
-    else{
-        $solde = rand(0, 1500);
-    }
-    $typeCompte = readline ("Quel type de compte voulez vous ? (Livret A / PEL / Courant) : ");
-    $f = fopen("./bdd/compte.csv", "a+");
-    if (filesize("./bdd/compte.csv") > 0){
-        $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
-        fputcsv($f, $tab, ";");
-    }
-    else{
-        fputcsv($f, $header, ";");
-        $tab = [$numCompte, $agence, $client, $solde, $decouvert, $typeCompte];
-        fputcsv($f, $tab, ";");
-    }
-    echo("Votre nouveau numéro de compte bancaire est : $numCompte");
-    fclose($f);
 }
+
+    
 ?>

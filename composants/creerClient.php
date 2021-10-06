@@ -3,7 +3,10 @@
 function creerClient(){
     $header = ["id_client", "genre", "nom", "prenom", "date_naissance", "mail"];
 
-    $genre = readline ("Veuillez entrer votre genre (taper Homme ou Femme) : ");
+    $genre = readline ("Veuillez saisir votre genre (taper Homme ou Femme) : ");
+    while ($genre != "Homme" && $genre != "Femme"){
+        $genre = readline ("Veuillez saisir un genre valide (Homme ou Femme) : ");
+        }
     $nom = readline ("Entrez votre nom de famille : ");
     $prenom = readline ("Entrez votre prénom : ");
     $age = readline ("Entrez votre date de naissance (JJ/MM/AAAA) : ");
@@ -42,5 +45,4 @@ function creerClient(){
 
     echo "\n";
 }
-
 ?>

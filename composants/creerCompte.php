@@ -21,7 +21,6 @@ function creerCompte(){
         }
         */
         $listeClients = csvToArray("./bdd/client.csv");
-        print_r($listeClients);
         foreach($listeClients as $c){
             if($c[0] == $recherche){
                 $client = $c[0];
@@ -72,7 +71,7 @@ function creerCompte(){
                 }
             }
             */
-            $listeAgences = csvToArray("./bdd/client.csv");
+            $listeAgences = csvToArray("./bdd/agence.csv");
             foreach($listeAgences as $a){
                 if($a[0] == $idAgence){
                     $agence = $a[0];

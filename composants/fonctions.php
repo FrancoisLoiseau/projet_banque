@@ -1,15 +1,16 @@
 <?php
 
 function csvToArray($chemin){
-    $array = [];
-    if($file = fopen($chemin, "r")){
-        while (!feof($file)){
-            print_r(fgetcsv($file, 1000, ";"));
-            $array[] = fgetcsv($file, 1000, ";");
+    $tab = [];
+    if(($fichier = fopen($chemin, "r")) !== FALSE) {
+        while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
+            $tab[] = $data;
         }
-        fclose($file);
+        fclose($fichier);
     }
-    return $array;
+    return $tab;
 }
+
+
 
 ?>

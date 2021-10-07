@@ -21,8 +21,8 @@ function creerClient(){
     $mail = readline ("Veuillez entrer votre e-mail : ");
     $unique = true;
     $listeClient = csvToArray("./bdd/client.csv");
-    for($i=0; $i<count($listeClient)-1; $i++){
-        if($listeClient[$i][5] == $mail){
+    foreach($listeClient as $client){
+        if($client[5] == $mail){
             $unique = false;
             break;
         }
@@ -31,9 +31,8 @@ function creerClient(){
         echo "Le format de l'email n'est pas conforme ou l'email est déjà utilisée. \n";
         $mail = readline ("Veuillez entrer votre email : ");
         $unique = true;
-        for($i=0; $i<count($listeClient)-1; $i++){
-            echo($listeClient[$i][5] . " === " . $mail . "\n");
-            if($listeClient[$i][5] == $mail){
+        foreach($listeClient as $client){
+            if($client[5] == $mail){
                 $unique = false;
                 break;
             }

@@ -1,5 +1,7 @@
 <?php
 
+include('fonctions.php');
+
 function creerCompte(){
     $header = ["numero_compte" , "code_agence" , "id_client", "solde", "decouvert_autorise", "type_compte"];
     $numCompte = "";
@@ -9,6 +11,7 @@ function creerCompte(){
 
     while($client == null){
         $recherche = readline("Entrez votre numéro de client : ");
+        /*
         if(($fClient = fopen("./bdd/client.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($fClient, 1000, ";")) !== FALSE) {
                 if($data[0] == $recherche) {
@@ -16,13 +19,31 @@ function creerCompte(){
                 }
             }
         }
+        */
+        $listeClients = csvToArray("./bdd/client.csv");
+        print_r($listeClients);
+        foreach($listeClients as $c){
+            if($c[0] == $recherche){
+                $client = $c[0];
+                //break;
+            }
+        }
         if ($client){
+            /*
             if (($fCompte = fopen("./bdd/compte.csv", "r")) !== FALSE){
                 while (($data = fgetcsv($fCompte, 1000, ";")) !== FALSE){
                     if($data[2] == $recherche){
                         $compteur++;
                         $listeTypeCompte[] = $data[5];
                     }
+                }
+            }
+            */
+            $listeComptes = csvToArray("./bdd/client.csv");
+            foreach($listeComptes as $c){
+                if($c[2] == $recherche){
+                    $compteur++;
+                    $listeTypeCompte[] = $c[5];
                 }
             }
         }
@@ -40,6 +61,7 @@ function creerCompte(){
         $trouve = false;
         while(!$trouve){
             $idAgence = readline ("Veuillez saisir votre numéro d'agence (doit contenir 3 chiffres) : ");
+            /*
             if(($fichier = fopen("./bdd/agence.csv", "r")) !== FALSE) {
                 while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
                     if($data[0] == $idAgence){
@@ -47,6 +69,15 @@ function creerCompte(){
                         $trouve = true;
                         break;
                     }
+                }
+            }
+            */
+            $listeAgences = csvToArray("./bdd/client.csv");
+            foreach($listeAgences as $a){
+                if($a[0] == $idAgence){
+                    $agence = $a[0];
+                    $trouve = true;
+                    break;
                 }
             }
         }

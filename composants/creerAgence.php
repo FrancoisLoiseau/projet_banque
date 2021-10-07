@@ -3,43 +3,31 @@
 function creerAgence(){
 
     $tabagence = ["code_agence", "nom", "adresse"];
-    $filname = "./bdd/agence.csv";
+    $filename = "./bdd/agence.csv";
     
     $nom = readline ("Entrer le nom de l'agence : ");
     $adresse = readline ("Entrer l'adresse de l'agence : ");
     $code = (rand(100,999));
     
-    $var = fopen($filname , "a+");
-    
-    if (filesize($filname) == 0 ) {
-        fputcsv($var, $tabagence,";");
+    if (filesize($filename) == 0 ) {
+        $fichier = fopen($filename , "a+");
+        fputcsv($fichier, $tabagence,";");
         $tabagence= [$code, $nom, $adresse];
-        fputcsv($var, $tabagence,";");
-        fclose($var);
+        fputcsv($fichier, $tabagence,";");
+        fclose($fichier);
     }
     else{
-        $tab=[];
-        
-        $tab_code=[];
-    
-        while(($row=fgetcsv($var, 1000, ";"))!=false) {
-            $tab[]= $row;
-        }
-    
-        for($i=1; $i<count($tab); $i++) {
-            $tab_code[] = $tab[$i][0];
-        }
-    
-        for($i=0; $i<count($tab_code); $i++) {
-            if($code==$tab_code[$i]) {
-                $code=(rand(100,999));
-                $i=-1;
+        $listeAgences = csvToArray($filename);
+        for($i=0; $i<count($listeAgences)-1; $i++){
+            if($listeAgences[$i][0] == $code){
+                $code = rand(100,999);
+                $i = -1;
             }
         }
+        $fichier = fopen($filename , "a+");
         $tabagence= [$code, $nom, $adresse];
-        fputcsv($var, $tabagence,";");
-    
-        fclose($var);
+        fputcsv($fichier, $tabagence,";");
+        fclose($fichier);
     }
 }
 

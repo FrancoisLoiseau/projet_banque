@@ -2,7 +2,7 @@
 
 function imprimerClient(){
 
-    $recherche = readline("Entrer le numéro client svp : ");
+    $recherche = readline("Entrer le ID client svp : ");
 
     $client = null;
     $comptes = [];
@@ -35,6 +35,7 @@ function imprimerClient(){
                         "id_client" => $data[2],
                         "solde" => $data[3],
                         "decouvert_autorise" => $data[4],
+                        "type_compte" => $data[5],
                     ];
                     $comptes[] = $compte;
                 }
@@ -46,7 +47,6 @@ function imprimerClient(){
             echo("Aucun compte trouvé !\n");
         }
         else{
-            print_r($comptes);
             echo("\n");
             echo("Numéro client : " . $client["id_client"] . "\n");
             echo("Nom : " . $client["nom"] . "\n");
@@ -56,17 +56,20 @@ function imprimerClient(){
             echo("------------------------------------------------------\n");
             echo("Liste de compte\n");
             echo("------------------------------------------------------\n");
-            echo("Numéro de compte\tSolde\t\n");
+            echo("Numéro de compte\tSolde\tType_compte\n");
             echo("------------------------------------------------------\n");
             foreach($comptes as $compte){
-                $smiley = "";
+                $smiley = "\t";
+                if($compte["type_compte"] !== "Livret A"){
+                    $smiley .= "\t";
+                }
                 if($compte["solde"] > 0){
-                    $smiley = ":-)";
+                    $smiley .= ":-)";
                 }
                 else{
-                    $smiley = ":-(";
+                    $smiley .= ":-(";
                 }
-                echo($compte["id_compte"] . "\t\t" . $compte["solde"] . "\t\t\t" . $smiley . "\n");
+                echo($compte["id_compte"] . "\t\t" . $compte["solde"] . "\t" . $compte["type_compte"] . $smiley . "\n");
             }
             echo("\n");
         }

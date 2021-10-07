@@ -10,7 +10,15 @@ function creerClient(){
     $nom = readline ("Entrez votre nom de famille : ");
     $prenom = readline ("Entrez votre prénom : ");
     $age = readline ("Entrez votre date de naissance (JJ/MM/AAAA) : ");
+    while(!(preg_match('/^(((0[1-9])|(1\d)|(2\d)|(3[0-1]))\/((0[1-9])|(1[0-2]))\/(\d{4}))$/', $age))) {
+        echo "Le format de la date n'est pas conforme. \n";
+        $age = readline ("Entrez votre date de naissance avec le bon format (JJ/MM/AAAA) : ");
+    }
     $mail = readline ("Veuillez entrer votre e-mail : ");
+    while (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        echo "Le format de l' e-mail n'est pas conforme. \n";
+        $mail = readline ("Entrez le bon format de mail : ");
+    }
 
     for($i=0; $i<8; $i++){
         $id = chr(rand(65,90)) . chr(rand(65,90));
@@ -44,5 +52,5 @@ function creerClient(){
     echo("Votre ID est: " . $id);
 
     echo "\n";
-}
+    }   
 ?>

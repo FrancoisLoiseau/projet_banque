@@ -11,6 +11,10 @@ function csvToArray($chemin){
     return $tab;
 }
 
-
+function arrayToCsv($chemin, $tab){
+    $fichier = fopen($chemin, "a+");
+    fputcsv($fichier, $tab, ";");
+    fclose($fichier);
+}
 
 ?>

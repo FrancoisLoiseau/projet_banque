@@ -1,82 +1,74 @@
 <?php
 
 function rechClient(){
+
+    $listeClients = csvToArray(FILE_CLIENT);
+    $listeComptes = csvToArray(FILE_COMPTE);
+
     $nom = readline("Veuillez saisir votre nom: ");
-    $num_de_compte = readline("Veuillez saisir votre numero de compte: ");
+    $numCompte = readline("Veuillez saisir votre numero de compte: ");
     $id = readline ("Veuillez entrer votre ID client: ");
 
     $listeNom = [];
     if(strlen($nom) > 0){
-        if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                if($data[2] == $nom){
-                    $client = [
-                        "id_client" => $data[0],
-                        "genre" => $data[1],
-                        "nom" => $data[2],
-                        "prenom" => $data[3],
-                        "date_naissance" => $data[4],
-                        "email" => $data[5],
-                    ];
-                    $listeNom[] = $client;
-                }
+        foreach($listeClients as $c){
+            if($c[2] == $nom){
+                $client = [
+                    "id_client" => $c[0],
+                    "genre" => $c[1],
+                    "nom" => $c[2],
+                    "prenom" => $c[3],
+                    "date_naissance" => $c[4],
+                    "email" => $c[5],
+                ];
+                $listeNom[] = $client;
             }
-            fclose($fichier);
         }
     }
 
     $listeId = [];
     if(strlen($id) > 0){
-        if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                if($data[0] == $id){
-                    $client = [
-                        "id_client" => $data[0],
-                        "genre" => $data[1],
-                        "nom" => $data[2],
-                        "prenom" => $data[3],
-                        "date_naissance" => $data[4],
-                        "email" => $data[5],
-                    ];
-                    $listeId[] = $client;
-                    break;
-                }
+        foreach($listeClients as $c){
+            if($c[0] == $id){
+                $client = [
+                    "id_client" => $c[0],
+                    "genre" => $c[1],
+                    "nom" => $c[2],
+                    "prenom" => $c[3],
+                    "date_naissance" => $c[4],
+                    "email" => $c[5],
+                ];
+                $listeId[] = $client;
+                break;
             }
-            fclose($fichier);
         }
     }
 
     $listeCompte = [];
-    if(strlen($num_de_compte) > 0){
+    if(strlen($numCompte) > 0){
         $idClient = null;
-        if (($fichier = fopen("./bdd/compte.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                if($data[0] == $num_de_compte){
-                    $idClient = $data[2];
+        foreach($listeComptes as $c){
+            if($c[0] == $numCompte){
+                $idClient = $c[2];
+                break;
+            }
+        }
+        if($idClient){
+            foreach($listeClients as $c){
+                if($c[0] == $idClient){
+                    $client = [
+                        "id_client" => $c[0],
+                        "genre" => $c[1],
+                        "nom" => $c[2],
+                        "prenom" => $c[3],
+                        "date_naissance" => $c[4],
+                        "email" => $c[5],
+                    ];
+                    $listeCompte[] = $client;
                     break;
                 }
             }
-            fclose($fichier);
-            if($idClient){
-                if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
-                    while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                        if($data[0] == $idClient){
-                            $client = [
-                                "id_client" => $data[0],
-                                "genre" => $data[1],
-                                "nom" => $data[2],
-                                "prenom" => $data[3],
-                                "date_naissance" => $data[4],
-                                "email" => $data[5],
-                            ];
-                            $listeCompte[] = $client;
-                            break;
-                        }
-                    }
-                    fclose($fichier);
-                }
-            } 
-        }
+        } 
     }
 
     $i = 1;

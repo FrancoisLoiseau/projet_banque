@@ -1,33 +1,32 @@
 <?
 
+include('composants/fonctions.php');
+include('composants/constantes.php');
+
 function creerAgence(){
 
-    $tabagence = ["code_agence", "nom", "adresse"];
-    $filename = "./bdd/agence.csv";
+    $listeAgences = csvToArray(FILE_AGENCE);
+
+    $header = ["code_agence", "nom", "adresse"];
     
     $nom = readline ("Entrer le nom de l'agence : ");
     $adresse = readline ("Entrer l'adresse de l'agence : ");
     $code = (rand(100,999));
     
-    if (filesize($filename) == 0 ) {
-        $fichier = fopen($filename , "a+");
-        fputcsv($fichier, $tabagence,";");
+    if (filesize("./bdd/agence.csv") == 0 ) {
+        arrayToCsv("./bdd/agence.csv", $header);
         $tabagence= [$code, $nom, $adresse];
-        fputcsv($fichier, $tabagence,";");
-        fclose($fichier);
+        arrayToCsv("./bdd/agence.csv", $tabagence);
     }
     else{
-        $listeAgences = csvToArray($filename);
         for($i=0; $i<count($listeAgences)-1; $i++){
             if($listeAgences[$i][0] == $code){
-                $code = rand(100,999);
+                $code = rand(100, 999);
                 $i = -1;
             }
         }
-        $fichier = fopen($filename , "a+");
         $tabagence= [$code, $nom, $adresse];
-        fputcsv($fichier, $tabagence,";");
-        fclose($fichier);
+        arrayToCsv("./bdd/agence.csv", $tabagence);
     }
 }
 

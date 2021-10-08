@@ -2,45 +2,42 @@
 
 function imprimerClient(){
 
-    $recherche = readline("Entrer le ID client svp : ");
+    $listeClients = csvToArray(FILE_CLIENT);
+    $listeComptes = csvToArray(FILE_COMPTE);
 
     $client = null;
     $comptes = [];
 
-    if(($fichier = fopen("./bdd/client.csv", "r")) !== FALSE) {
-        while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-            if($data[0] == $recherche){
-                $client = [
-                    "id_client" => $data[0],
-                    "nom" => $data[2],
-                    "prenom" => $data[3],
-                    "date_naissance" => $data[4],
-                    "email" => $data[5],
-                ];
-                break;
-            }
+    $recherche = readline("Entrer l'ID client svp : ");
+
+    foreach($listeClients as $c){
+        if($c[0] == $recherche){
+            $client = [
+                "id_client" => $c[0],
+                "nom" => $c[2],
+                "prenom" => $c[3],
+                "date_naissance" => $c[4],
+                "email" => $c[5],
+            ];
+            break;
         }
-        fclose($fichier);
     }
 
     if(!$client){
         echo("Aucun client trouvé !\n");
     }
     else{
-        if (($fichier = fopen("./bdd/compte.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($fichier, 1000, ";")) !== FALSE) {
-                if($data[2] == $client["id_client"]){
-                    $compte = [
-                        "id_compte" => $data[0],
-                        "id_client" => $data[2],
-                        "solde" => $data[3],
-                        "decouvert_autorise" => $data[4],
-                        "type_compte" => $data[5],
-                    ];
-                    $comptes[] = $compte;
-                }
+        foreach($listeComptes as $c){
+            if($c[2] == $client["id_client"]){
+                $compte = [
+                    "id_compte" => $c[0],
+                    "id_client" => $c[2],
+                    "solde" => $c[3],
+                    "decouvert_autorise" => $c[4],
+                    "type_compte" => $c[5],
+                ];
+                $comptes[] = $compte;
             }
-            fclose($fichier);
         }
 
         if($comptes == []){

@@ -1,8 +1,9 @@
 <?php
 
-
-
 function creerClient(){
+
+    $listeClient = csvToArray(FILE_CLIENT);
+
     $header = ["id_client", "genre", "nom", "prenom", "date_naissance", "mail"];
     $genre = readline ("Veuillez saisir votre genre (taper Homme ou Femme) : ");
     while ($genre != "Homme" && $genre != "Femme"){
@@ -20,7 +21,6 @@ function creerClient(){
     
     $mail = readline ("Veuillez entrer votre e-mail : ");
     $unique = true;
-    $listeClient = csvToArray("./bdd/client.csv");
     foreach($listeClient as $client){
         if($client[5] == $mail){
             $unique = false;
@@ -39,37 +39,32 @@ function creerClient(){
         }
     }
 
-    for($i=0; $i<8; $i++){
-        $id = chr(rand(65,90)) . chr(rand(65,90));
-        $id .= rand(100000, 999999);
+    $id = chr(rand(65,90)) . chr(rand(65,90));
+    for($i=0; $i<6; $i++){
+        $id .= rand(0, 9);
     }
 
     if(filesize("bdd/client.csv") > 0){
-        if(($f = fopen("./bdd/client.csv", "a+")) !== FALSE) {
-            while (($data = fgetcsv($f, 1000, ";")) !== FALSE) {
-                if($data[0] == $id){ 
-                    for($i=0; $i<8; $i++){
-                        $id = chr(rand(65,90)) . chr(rand(65,90));
-                        $id .= rand(100000, 999999);
-                    }
-                    fseek($f, 0);
+        for($i=0; $i<count($listeClient)-1; $i++){
+            if($listeClient[$i][0] == $id){
+                $id = chr(rand(65,90)) . chr(rand(65,90));
+                for($i=0; $i<6; $i++){
+                    $id .= rand(0, 9);
                 }
+                $i = -1;
             }
         }
         $tab = [$id, $genre, $nom, $prenom, $age, $mail];
-        fputcsv($f, $tab, ";");
-        fclose($f); 
+        arrayToCsv("./bdd/client.csv", $tab); 
     }
     else{
-        $f = fopen("./bdd/client.csv", "a+");
+        arrayToCsv("./bdd/client.csv", $header);
         $tab = [$id, $genre, $nom, $prenom, $age, $mail];
-        fputcsv($f, $header, ";");
-        fputcsv($f, $tab, ";");
-        fclose($f); 
+        arrayToCsv("./bdd/client.csv", $tab);
     }
 
     echo("Votre ID est: " . $id);
-
     echo "\n";
-    }   
+}
+   
 ?>

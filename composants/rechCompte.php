@@ -3,6 +3,7 @@
 function rechCompte() {
 
     $listeComptes = csvToArray(FILE_COMPTE);
+    showArray($listeComptes);
 
     $numCompte=readline ("Entrer votre n° de compte : ");
     $compte = null;

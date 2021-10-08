@@ -7,7 +7,7 @@ function imprimerClient(){
 
     $client = null;
     $comptes = [];
-
+    showArray($listeClients);
     $recherche = readline("Entrer l'ID client svp : ");
 
     foreach($listeClients as $c){

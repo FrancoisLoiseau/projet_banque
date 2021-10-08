@@ -5,6 +5,9 @@ function rechClient(){
     $listeClients = csvToArray(FILE_CLIENT);
     $listeComptes = csvToArray(FILE_COMPTE);
 
+    showArray($listeClients);
+    showArray($listeComptes);
+
     $nom = readline("Veuillez saisir votre nom: ");
     $numCompte = readline("Veuillez saisir votre numero de compte: ");
     $id = readline ("Veuillez entrer votre ID client: ");

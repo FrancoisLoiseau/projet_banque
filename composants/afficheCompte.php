@@ -3,6 +3,8 @@
 function afficheCompte(){
 
     $listeComptes = csvToArray(FILE_COMPTE);
+    $listeClients = csvToArray(FILE_CLIENT);
+    showArray($listeClients);
 
     $idClient = readline("Entrer l'ID client : ");
     $comptes = [];

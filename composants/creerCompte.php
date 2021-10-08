@@ -14,6 +14,7 @@ function creerCompte(){
     $listeTypeCompte = [];
 
     while($client == null){
+        showArray($listeClients);
         $recherche = readline("Entrez votre numéro de client : ");
         foreach($listeClients as $c){
             if($c[0] == $recherche){
@@ -40,6 +41,7 @@ function creerCompte(){
         echo("Vous avez atteint le nombre maximum de comptes autorisés.");
     }
     else{
+        showArray($listeAgences);
         while($agence == null){
             $idAgence = readline ("Veuillez saisir votre numéro d'agence (doit contenir 3 chiffres) : ");
             foreach($listeAgences as $a){

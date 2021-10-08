@@ -17,4 +17,21 @@ function arrayToCsv($chemin, $tab){
     fclose($fichier);
 }
 
+function showArray($tab){
+    $taille = count($tab[0])-1;
+    echo("\n");
+    foreach($tab as $t){
+        foreach($t as $elt){
+            if($elt == $t[$taille]){
+                echo($elt);
+            }
+            else{
+                echo($elt . ", ");
+            }
+        }
+        echo("\n");
+    }
+    echo("\n");
+}
+
 ?>

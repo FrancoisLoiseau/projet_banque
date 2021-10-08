@@ -62,11 +62,13 @@ function imprimerClient(){
                 }
                 if($compte["solde"] > 0){
                     $smiley .= ":-)";
+                    echo("\033[32m" . $compte["id_compte"] . "\t\t" . $compte["solde"] . "\t" . $compte["type_compte"] . $smiley . "\033[0m\n");
                 }
                 else{
                     $smiley .= ":-(";
+                    echo("\033[31m" . $compte["id_compte"] . "\t\t" . $compte["solde"] . "\t" . $compte["type_compte"] . $smiley . "\033[0m\n");
                 }
-                echo($compte["id_compte"] . "\t\t" . $compte["solde"] . "\t" . $compte["type_compte"] . $smiley . "\n");
+                
             }
             echo("\n");
         }
